@@ -1,0 +1,25 @@
+{
+  "name": "algorithm_visualizer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "server:debug": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yuichiu416/alrogithm_visualizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuichiu416/alrogithm_visualizer/issues"
+  },
+  "homepage": "https://github.com/yuichiu416/alrogithm_visualizer#readme",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "babel": "^6.23.0"
+  }
+}

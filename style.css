@@ -1,0 +1,24 @@
+#root {
+    
+}
+#nav {
+    background-color: antiquewhite;
+}
+
+#array {
+    background-color: aquamarine;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+}
+
+#array .number{
+    width: 30px;
+    background-color: red;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#speed-slider{
+    background-color: azure;
+}
