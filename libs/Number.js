@@ -1,14 +1,23 @@
 class Number{
-    constructor(value, unitWidth){
+    constructor(value, unitHeight, size){
         let number = document.createElement("div");
         let text = document.createElement("span");
+
         text.innerHTML = value;
         text.classList.add("number-text")
+        window.width = 35;
+        if(value * unitHeight < 35)
+            text.classList.add("small");
+        if(size > 40){
+            text.classList.add("hidden");
+            number.classList.add("tiny");
+            window.width = 15;
+        }
+
         number.appendChild(text);
         number.classList.add("number");
         number.setAttribute("value", value);
-        number.style.height = value * unitWidth + "px";
-
+        number.style.height = value * unitHeight + "px";
         return number;
     }
 }

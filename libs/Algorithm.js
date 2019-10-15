@@ -1,18 +1,23 @@
 class Algorithm {
     constructor(interval) {
         window.interval = interval;
-        window.Algorithm = this;
         window.randomize = this.randomize;
         window.makeArrayFromDivs = this.makeArrayFromDivs;
-        window.resetAll = this.resetAll;
-        window.countSteps = this.countSteps;
+        window.resetAllSorting = this.resetAllSorting;
         window.move = this.move;
         window.sleep = this.sleep;
+        window.countSteps = this.countSteps;
+        window.countSwaps = this.countSwaps;
         this.bubbleSort = this.bubbleSort.bind(this);
     }
+
     countSteps(){
-        const count = document.getElementById("count");
-        count.innerHTML = parseInt(count.innerHTML) + 1;
+        const steps = document.getElementById("steps");
+        steps.innerHTML = parseInt(steps.innerHTML) + 1;
+    }
+    countSwaps() {
+        const swaps = document.getElementById("swaps");
+        swaps.innerHTML = parseInt(swaps.innerHTML) + 1;
     }
     randomize() {
         let divs = document.getElementsByClassName("number");
@@ -28,15 +33,14 @@ class Algorithm {
             divs[currentIndex].parentNode.insertBefore(divs[currentIndex], divs[randomIndex]);
             divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
         }
-        window.resetAll();
+        window.resetAllSorting();
     }
-    resetAll() {
+    resetAllSorting() {
         let divs = document.getElementsByClassName("number");
         for (let i = 0; i < divs.length; i++) {
             divs[i].classList.remove("sorting");
         }
-        document.getElementById("count").innerHTML = 0;
-        window.stop = true;
+        document.getElementById("steps").innerHTML = 0;
     }
     makeArrayFromDivs(){
         let divs = document.getElementsByClassName("number-text");
@@ -52,11 +56,11 @@ class Algorithm {
     move() {
         let left = document.getElementsByClassName("move-to-right")[0];
         let right = document.getElementsByClassName("move-to-left")[0];
-        let id = setInterval(() => frame(left, right), 10);
+        let id = setInterval(() => frame(left, right), 1);
         function frame(left, right) {
             let leftDistance = parseInt(left.style.left) || 0;
             let rightDistance = parseInt(right.style.left) || 0;
-            if (leftDistance >= 40) {
+            if (leftDistance == window.width) {
                 clearInterval(id);
             } else {
                 left.style.left = leftDistance + 1 + "px";
@@ -65,36 +69,63 @@ class Algorithm {
         }
         return new Promise(resolve => setTimeout(resolve, window.interval));
     }
+    async selectionSort() {
+        let minIdx, temp,
+            len = arr.length;
+        for (let i = 0; i < len; i++) {
+            minIdx = i;
+            for (let j = i + 1; j < len; j++) {
+                if (arr[j] < arr[minIdx]) {
+                    minIdx = j;
+                }
+            }
+            temp = arr[i];
+            arr[i] = arr[minIdx];
+            arr[minIdx] = temp;
+        }
+        return arr;
+    }
+
     async bubbleSort() {
         window.stop = false;
+        window.resetAllSorting();
         let array = window.makeArrayFromDivs();
         let len = array.length;
         let divs = document.getElementsByClassName("number");
-        for (let i = 0; i < len; i++) {
-            for (let j = 0; j < len - 1; j++) {
-                let left = divs[j], right = divs[j + 1];
-                if (array[j + 1] < array[j]) {
-                    left.classList.toggle("sorting");
-                    left.classList.toggle("move-to-right");
-                    right.classList.toggle("move-to-left");
+        let sorted = false;
+        while(!sorted) {
+            sorted = true
+            for (let i = 0; i < len - 1; i++) {
+                if(window.stoppedIndex){
+                    i = window.stoppedIndex;
+                    window.stoppedIndex = undefined;
+                }
+                window.countSteps();
+                let left = divs[i], right = divs[i + 1];
+                if (array[i + 1] < array[i]) {
+                    window.countSwaps();
+                    sorted = false;
+                    left.classList.add("sorting");
+                    left.classList.add("move-to-right");
+                    right.classList.add("move-to-left");
                     await window.move()
                     await window.sleep(window.interval);
                     let temp = right;
-                    right.parentNode.insertBefore(divs[j + 1], left);
-                    left.parentNode.insertBefore(divs[j], temp);
+                    right.parentNode.insertBefore(divs[i + 1], left);
+                    left.parentNode.insertBefore(divs[i], temp);
 
                     left.style.left = "";
                     right.style.left = "";
 
-                    temp = array[j + 1];
-                    array[j + 1] = array[j];
-                    array[j] = temp;
-                    left.classList.toggle("sorting");
-                    left.classList.toggle("move-to-right");
-                    right.classList.toggle("move-to-left");
+                    temp = array[i + 1];
+                    array[i + 1] = array[i];
+                    array[i] = temp;
                 }
-                if(window.stop) 
-                    return window.resetAll()
+                left.classList.remove("move-to-right");
+                right.classList.remove("move-to-left");
+                if(window.stop)
+                    return window.stoppedIndex = i + 1;
+                left.classList.remove("sorting");
             }
         }
     }
@@ -103,5 +134,4 @@ class Algorithm {
 document.addEventListener("DOMContentLoaded", () => {
     const interval = document.getElementById("slider").nodeValue;
     window.Algorithm = new Algorithm(interval);
-    window.bubbleSort = Algorithm.prototype.bubbleSort;
 })

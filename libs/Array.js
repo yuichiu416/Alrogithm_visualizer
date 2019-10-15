@@ -1,5 +1,6 @@
 class Array{
     constructor(size, values){
+    window.Array = this;
         if(values)
             this.array = values;
         else
@@ -15,11 +16,21 @@ class Array{
 
     createArrayLi(arrayHTMLElement) {
         let array = this.array;
-        const unitWidth = 600 / array.length;
+        const unidHeight = 600 / array.length;
+        while(arrayHTMLElement.firstChild){
+            arrayHTMLElement.removeChild(arrayHTMLElement.firstChild);
+        }
         array.forEach(value => {
-            let number = new Number(value, unitWidth);
+            let number = new Number(value, unidHeight, array.length);
             arrayHTMLElement.appendChild(number);
         });
+    }
+    changeSize(){
+        const size = document.getElementById("size").value;
+        if(isNaN(parseInt(size)))
+            return;
+        const arrayHTMLElement = document.getElementById("array");
+        new Array(size).createArrayLi(arrayHTMLElement);
     }
 }
 

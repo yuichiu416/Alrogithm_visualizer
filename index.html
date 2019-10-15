@@ -17,13 +17,22 @@
             <a href="#"><image src="./images/logo.png" class="logo" /></a>
         </div>
         <label class="steps">
-            Total steps:
-            <label id="count" >0</label>
+            Total iteration:
+            <label id="steps" >0</label>
+        </label>
+        <label class="swaps">
+            Total swaps:
+            <label id="swaps">0</label>
         </label>
         <div id="array"></div>
-        <button onclick="bubbleSort()">Sort</button>
+        <button onclick="Algorithm.prototype.bubbleSort()">Sort</button>
+        <button onclick="stopSorting()">Stop</button>
         <button onclick="randomize()">Randomize</button>
-        <div id="slider-div" onchange="changeInterval()">Speed slider <input type="range" min="0" max="999" value="999" class="slider" id="slider"></div>
+        <div id="slider-div" onchange="changeInterval()">Speed slider <input type="range" min="0" max="900" value="900" class="slider" id="slider"></div>
+        <label for="size">
+            Input the size of the array:
+            <input id="size" type="text" onchange="Array.prototype.changeSize()"/>
+        </label>
     </div>
 </body>
 

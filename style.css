@@ -18,10 +18,11 @@
     height: 600px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .number{
-    width: 40px;
+    min-width: 35px;
     background-color: burlywood;
     border-width: 1px;
     border-style: solid;
@@ -45,4 +46,19 @@
 .steps{
     position: absolute;
     font-size: 25px;
+}
+.swaps{
+    position: absolute;
+    font-size: 25px;
+    top: 70px;
+}
+.small{
+    position: relative;
+    bottom: 35px;
+}
+.hidden{
+    display: none;
+}
+.tiny{
+    min-width: 15px;
 }
