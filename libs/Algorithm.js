@@ -32,7 +32,6 @@ class Algorithm {
         let array = window.makeArrayFromDivs();
         let len = array.length;
         let divs = document.getElementsByClassName("number");
-        console.log(window.interval);
         for (let i = 0; i < len; i++) {
             for (let j = 0; j < len - 1; j++) {
                 if (array[j + 1] < array[j]) {

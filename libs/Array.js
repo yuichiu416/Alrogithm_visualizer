@@ -3,22 +3,18 @@ class Array{
         this.array = this.initializeArrayWithSize(size);
     }
     initializeArrayWithSize(size){
-        let arr = [];
+        let array = [];
         for (let i = 1; i <= size; i++) {
-            arr.push(i);
+            array.push(i);
         }
-        return arr;
+        return array;
     }
 
     createArrayLi(arrayHTMLElement) {
         let array = this.array;
         const unitWidth = 600 / array.length;
-        array.forEach(num => {
-            var number = document.createElement("div");
-            number.innerHTML = num;
-            number.classList.add("number");
-            number.setAttribute("value", num);
-            number.style.height = num * unitWidth + "px";
+        array.forEach(value => {
+            let number = new Number(value, unitWidth);
             arrayHTMLElement.appendChild(number);
         })
     }
