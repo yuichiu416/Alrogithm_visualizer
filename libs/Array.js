@@ -19,9 +19,8 @@ class Array{
         array.forEach(value => {
             let number = new Number(value, unitWidth);
             arrayHTMLElement.appendChild(number);
-        })
+        });
     }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
