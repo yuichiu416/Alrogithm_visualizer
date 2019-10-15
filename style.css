@@ -18,17 +18,21 @@
     height: 600px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .number{
     width: 40px;
-    background-color: red;
+    background-color: burlywood;
     border-width: 1px;
     border-style: solid;
     font-size: 30px;
     margin-top: auto;
     display: flex;
     flex-direction: column;
+}
+.sorting{
+    background-color: red;
 }
 
 .number-text{
@@ -37,4 +41,8 @@
 }
 #speed-slider{
     background-color: azure;
+}
+.steps{
+    position: absolute;
+    font-size: 25px;
 }

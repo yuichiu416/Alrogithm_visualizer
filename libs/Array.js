@@ -1,6 +1,9 @@
 class Array{
-    constructor(size){
-        this.array = this.initializeArrayWithSize(size);
+    constructor(size, values){
+        if(values)
+            this.array = values;
+        else
+            this.array = this.initializeArrayWithSize(size);
     }
     initializeArrayWithSize(size){
         let array = [];
