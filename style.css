@@ -1,8 +1,16 @@
+*{
+    box-sizing: border-box;
+}
 #root {
     
 }
 #nav {
     background-color: antiquewhite;
+}
+
+.logo{
+    max-width: 10%;
+    height: auto;
 }
 
 #array {
@@ -12,14 +20,21 @@
     flex-direction: row;
 }
 
-#array .number{
-    width: 30px;
+.number{
+    width: 40px;
     background-color: red;
     border-width: 1px;
     border-style: solid;
-    text-align: center;
+    font-size: 30px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
 }
 
+.number-text{
+    margin: auto;
+    margin-bottom: 0;
+}
 #speed-slider{
     background-color: azure;
 }

@@ -21,7 +21,7 @@ class Algorithm {
         }
     }
     makeArrayFromDivs(){
-        let divs = document.getElementsByClassName("number");
+        let divs = document.getElementsByClassName("number-text");
         let array = [];
         for(let i = 0; i < divs.length; i++){
             array.push(parseInt(divs[i].innerHTML));
