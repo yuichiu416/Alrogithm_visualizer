@@ -20,6 +20,7 @@ function resetAllSorting() {
     let divs = document.getElementsByClassName("number");
     for (let i = 0; i < divs.length; i++) {
         divs[i].classList.remove("sorting");
+        divs[i].classList.remove("finished");
     }
     document.getElementById("steps").innerHTML = 0;
     document.getElementById("swaps").innerHTML = 0;

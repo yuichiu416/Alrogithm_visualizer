@@ -8,6 +8,10 @@ class Algorithm {
 
         let minIdx, temp;
         for (let i = 0; i < len - 1; i++) {
+            if (window.stoppedIndex) {
+                i = window.stoppedIndex;
+                window.stoppedIndex = undefined;
+            }
             minIdx = i;
             for (let j = i + 1; j < len; j++) {
                 window.countSteps();
@@ -44,6 +48,11 @@ class Algorithm {
                 return window.stoppedIndex = i + 1;
             left.classList.remove("sorting");
             right.classList.remove("sorting");
+            if (i + 1 === parseInt(right.firstChild.innerHTML)) {
+                right.classList.add("finished");
+                if(i === len - 2)
+                    left.classList.add("finished");
+            }
         }
         return array;
     }
@@ -84,12 +93,18 @@ class Algorithm {
                     array[i + 1] = array[i];
                     array[i] = temp;
                 }
-                await window.sleep(600 / window.speed);
                 left.classList.remove("move-to-right");
                 right.classList.remove("move-to-left");
                 if(window.stop)
                     return window.stoppedIndex = i + 1;
                 left.classList.remove("sorting");
+                if (i === len - 2)
+                    left.classList.add("finished"); 
+                else if (i + 1 === parseInt(left.firstChild.innerHTML)){
+                    right.classList.add("finished");
+                    if (i === 0)
+                        left.classList.add("finished");
+                }
             }
         }
     }

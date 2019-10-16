@@ -66,5 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.arrays = [];
     window.currentArrayIndex = 0;
     window.randomize = this.randomize;
-    new Array(10)
+    new Array(10);
 })

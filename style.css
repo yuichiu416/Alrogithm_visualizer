@@ -71,3 +71,6 @@
 .tiny{
     min-width: 15px;
 }
+.finished{
+    background-color: coral;
+}
