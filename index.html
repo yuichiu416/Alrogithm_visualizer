@@ -16,19 +16,30 @@
         <div id="nav">
             <a href="#"><image src="./images/logo.png" class="logo" /></a>
         </div>
-        <label class="steps">
-            Total iteration:
-            <label id="steps" >0</label>
-        </label>
-        <label class="swaps">
-            Total swaps:
-            <label id="swaps">0</label>
-        </label>
-        <div id="array"></div>
+        <div id="info-box">
+            <label class="steps">
+                Total iteration:
+                <label id="steps" >0</label>
+            </label>
+            <label class="swaps">
+                Total swaps:
+                <label id="swaps">0</label>
+            </label>
+            <label>
+                Array Histroy:
+                <ul id="array-history" class=""></ul>
+            </label>
+        </div>
+        <div id="array">
+        </div>
         <button onclick="Algorithm.prototype.bubbleSort()">Bubble Sort</button>
         <button onclick="Algorithm.prototype.selectionSort()">Selection Sort</button>
         <button onclick="stopSorting()">Stop</button>
-        <button onclick="randomize()">Randomize</button>
+        <button onclick="Array.prototype.randomize()" >Randomize</button>
+        <button onclick="previousArray()" id="previous-array">Previous Array</button>
+        <button onclick="nextArray()" id="next-array">Next Array</button>
+        <button onclick="handleHistroy(true)">History</button>
+
         <div id="slider-div" onchange="changeInterval()">Speed slider <input type="range" min="0" max="900" value="900" class="slider" id="slider"></div>
         <label for="size">
             Input the size of the array:

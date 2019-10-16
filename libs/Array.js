@@ -1,21 +1,48 @@
 class Array{
     constructor(size, values){
-    window.Array = this;
-        if(values)
+        if(values){
             this.array = values;
-        else
+            this.createArrayLi();
+        }
+        else{
             this.array = this.initializeArrayWithSize(size);
+            this.createArrayLi();
+        }
+        this.initializeArrayWithSize = this.initializeArrayWithSize.bind(this);
     }
     initializeArrayWithSize(size){
         let array = [];
         for (let i = 1; i <= size; i++) {
-            array.push(10 - i);
+            array.push(i);
         }
+        window.arrays.push(array);
         return array;
     }
+    randomize() {
+        let divs = document.getElementsByClassName("number");
+        if (divs.length === 0)
+            return;
+        let randomIndex, currentIndex = divs.length;
+        while (currentIndex > 0) {
+            currentIndex--;
+            randomIndex = Math.floor(Math.random() * divs.length);
+            let temp = divs[currentIndex];
+            divs[currentIndex].classList.remove("sorting");
+            divs[currentIndex].parentNode.insertBefore(divs[currentIndex], divs[randomIndex]);
+            divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
+        }
+        let array = window.makeArrayFromDivs();
+        window.arrays.push(array);
+        window.        
+        window.currentArrayIndex++;
+        window.resetAllSorting();
+        window.toggleArrayButtons();
+        window.handleHistroy();
+    }
 
-    createArrayLi(arrayHTMLElement) {
+    createArrayLi() {
         let array = this.array;
+        const arrayHTMLElement = document.getElementById("array");
         const unidHeight = 600 / array.length;
         while(arrayHTMLElement.firstChild){
             arrayHTMLElement.removeChild(arrayHTMLElement.firstChild);
@@ -35,6 +62,9 @@ class Array{
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const arrayHTMLElement = document.getElementById("array");
-    new Array(10).createArrayLi(arrayHTMLElement);
+    window.Array = Array;
+    window.arrays = [];
+    window.currentArrayIndex = 0;
+    window.randomize = this.randomize;
+    new Array(10)
 })

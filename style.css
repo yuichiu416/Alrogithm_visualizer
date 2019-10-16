@@ -32,6 +32,18 @@
     flex-direction: column;
     position: relative;
 }
+#info-box{
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+    position: absolute;
+}
+
+#array-history{
+    padding: 0;
+    margin: 0;
+    background-color: chartreuse;
+}
 .sorting{
     background-color: red;
 }
@@ -44,12 +56,8 @@
     background-color: azure;
 }
 .steps{
-    position: absolute;
-    font-size: 25px;
 }
 .swaps{
-    position: absolute;
-    font-size: 25px;
     top: 10%;
 }
 .small{
