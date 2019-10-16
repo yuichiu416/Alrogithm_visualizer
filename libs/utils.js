@@ -1,6 +1,6 @@
-function changeInterval() {
-    window.interval = Math.abs(document.getElementById("slider").value - 1000);
-    console.log(Math.abs(window.interval))
+function changeSpeed() {
+    window.speed = document.getElementById("slider").value;
+    document.getElementById("speed-label").innerHTML = window.speed;
 }
 
 function stopSorting() {
@@ -39,20 +39,22 @@ function sleep(milliseconds) {
 }
 
 function move(cells = 1) {
+    if(window.speed === 5)
+        return new Promise(resolve => setTimeout(resolve, 0));
     let left = document.getElementsByClassName("move-to-right")[0];
     let right = document.getElementsByClassName("move-to-left")[0];
-    let id = setInterval(() => frame(left, right), 1);
+    let id = setInterval(() => frame(left, right), 10/window.speed);
     function frame(left, right) {
         let leftDistance = parseInt(left.style.left) || 0;
         let rightDistance = parseInt(right.style.left) || 0;
-        if (leftDistance == window.width * cells) {
+        if (leftDistance >= window.width * cells) {
             clearInterval(id);
         } else {
-            left.style.left = leftDistance + 1 + "px";
-            right.style.left = rightDistance - 1 + "px";
+            left.style.left = leftDistance + 1 * cells + "px";
+            right.style.left = rightDistance - 1 * cells + "px";
         }
     }
-    return new Promise(resolve => setTimeout(resolve, window.interval * cells));
+    return new Promise(resolve => setTimeout(resolve, 600 / window.speed));
 }
 
 function changeArray(operation) {
@@ -94,7 +96,7 @@ function handleHistroy(toggle) {
             histroy.childNodes[i].classList.add("sorting");
     }
     if(toggle)
-        histroy.classList.toggle("hidden");
+        histroy.parentNode.classList.toggle("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -109,4 +111,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.toggleArrayButtons = toggleArrayButtons;
     window.handleHistroy = handleHistroy;
     toggleArrayButtons();
+    changeSpeed();
 });

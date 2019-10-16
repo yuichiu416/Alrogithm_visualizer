@@ -23,7 +23,7 @@ class Algorithm {
             left.classList.add("move-to-right");
             right.classList.add("move-to-left");
             await window.move(minIdx - i);
-            await window.sleep(window.interval * (minIdx - i));
+            await window.sleep( 300 / window.speed);
 
             temp = divs[i];
             divs[minIdx].parentNode.insertBefore(divs[minIdx], divs[i]);
@@ -71,7 +71,8 @@ class Algorithm {
                     left.classList.add("move-to-right");
                     right.classList.add("move-to-left");
                     await window.move()
-                    await window.sleep(window.interval);
+                    await window.sleep(300 / window.speed);
+
                     let temp = right;
                     right.parentNode.insertBefore(divs[i + 1], left);
                     left.parentNode.insertBefore(divs[i], temp);
@@ -83,7 +84,7 @@ class Algorithm {
                     array[i + 1] = array[i];
                     array[i] = temp;
                 }
-                await window.sleep(window.interval);
+                await window.sleep(600 / window.speed);
                 left.classList.remove("move-to-right");
                 right.classList.remove("move-to-left");
                 if(window.stop)
@@ -95,6 +96,6 @@ class Algorithm {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const interval = document.getElementById("slider").nodeValue;
-    window.Algorithm = new Algorithm(interval);
+    const speed = document.getElementById("slider").nodeValue;
+    window.Algorithm = new Algorithm(speed);
 })

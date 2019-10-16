@@ -25,9 +25,9 @@
                 Total swaps:
                 <label id="swaps">0</label>
             </label>
-            <label>
+            <label class="hidden">
                 Array Histroy:
-                <ul id="array-history" class=""></ul>
+                <ul id="array-history"></ul>
             </label>
         </div>
         <div id="array">
@@ -40,7 +40,13 @@
         <button onclick="changeArray(1)" id="next-array">Next Array</button>
         <button onclick="handleHistroy(true)">History</button>
 
-        <div id="slider-div" onchange="changeInterval()">Speed slider <input type="range" min="0" max="900" value="900" class="slider" id="slider"></div>
+        <div id="slider-div" onchange="changeSpeed()">
+            <label for="slider">
+                Speed slider :
+                <input type="range" min="1" max="5" value="3" step="1" class="slider" id="slider">
+                <label id="speed-label"></label>
+            </label>
+        </div>
         <label for="size">
             Input the size of the array:
             <input id="size" type="text" onchange="Array.prototype.changeSize()"/>
