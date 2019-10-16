@@ -1,6 +1,5 @@
 class Algorithm {
     constructor(interval) {
-        window.interval = interval;
         window.randomize = this.randomize;
         window.makeArrayFromDivs = this.makeArrayFromDivs;
         window.resetAllSorting = this.resetAllSorting;
@@ -41,6 +40,7 @@ class Algorithm {
             divs[i].classList.remove("sorting");
         }
         document.getElementById("steps").innerHTML = 0;
+        document.getElementById("swaps").innerHTML = 0;
     }
     makeArrayFromDivs(){
         let divs = document.getElementsByClassName("number-text");
@@ -53,37 +53,69 @@ class Algorithm {
     sleep(milliseconds){
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
-    move() {
+    move(cells = 1) {
         let left = document.getElementsByClassName("move-to-right")[0];
         let right = document.getElementsByClassName("move-to-left")[0];
         let id = setInterval(() => frame(left, right), 1);
         function frame(left, right) {
             let leftDistance = parseInt(left.style.left) || 0;
             let rightDistance = parseInt(right.style.left) || 0;
-            if (leftDistance == window.width) {
+            if (leftDistance == window.width * cells) {
                 clearInterval(id);
             } else {
                 left.style.left = leftDistance + 1 + "px";
                 right.style.left = rightDistance - 1 + "px";
             }
         }
-        return new Promise(resolve => setTimeout(resolve, window.interval));
+        return new Promise(resolve => setTimeout(resolve, window.interval * cells));
     }
     async selectionSort() {
-        let minIdx, temp,
-            len = arr.length;
-        for (let i = 0; i < len; i++) {
+        window.stop = false;
+        window.resetAllSorting();
+        let array = window.makeArrayFromDivs();
+        let len = array.length;
+        let divs = document.getElementsByClassName("number");
+
+        let minIdx, temp;
+        for (let i = 0; i < len - 2; i++) {
             minIdx = i;
             for (let j = i + 1; j < len; j++) {
-                if (arr[j] < arr[minIdx]) {
+                window.countSteps();
+                if (array[j] < array[minIdx]) {
                     minIdx = j;
                 }
             }
-            temp = arr[i];
-            arr[i] = arr[minIdx];
-            arr[minIdx] = temp;
+
+            let left = divs[i], right = divs[minIdx];
+            window.countSwaps();
+            left.classList.add("sorting");
+            right.classList.add("sorting");
+            left.classList.add("move-to-right");
+            right.classList.add("move-to-left");
+            await window.move(minIdx - i);
+            await window.sleep(window.interval * (minIdx - i));
+
+            temp = divs[i];
+            divs[minIdx].parentNode.insertBefore(divs[minIdx], divs[i]);
+            if(minIdx === len - 1)
+                divs[minIdx].parentNode.appendChild(divs[i + 1]);
+            else
+                divs[minIdx].parentNode.insertBefore(divs[i + 1], divs[minIdx + 1]);
+            left.style.left = "";
+            right.style.left = "";
+            
+            temp = array[i];
+            array[i] = array[minIdx];
+            array[minIdx] = temp;
+
+            left.classList.remove("move-to-right");
+            right.classList.remove("move-to-left");
+            if (window.stop)
+                return window.stoppedIndex = i + 1;
+            left.classList.remove("sorting");
+            right.classList.remove("sorting");
         }
-        return arr;
+        return array;
     }
 
     async bubbleSort() {

@@ -9,7 +9,7 @@ class Array{
     initializeArrayWithSize(size){
         let array = [];
         for (let i = 1; i <= size; i++) {
-            array.push(i);
+            array.push(10 - i);
         }
         return array;
     }
