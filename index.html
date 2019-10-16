@@ -36,8 +36,8 @@
         <button onclick="Algorithm.prototype.selectionSort()">Selection Sort</button>
         <button onclick="stopSorting()">Stop</button>
         <button onclick="Array.prototype.randomize()" >Randomize</button>
-        <button onclick="previousArray()" id="previous-array">Previous Array</button>
-        <button onclick="nextArray()" id="next-array">Next Array</button>
+        <button onclick="changeArray(-1)" id="previous-array">Previous Array</button>
+        <button onclick="changeArray(1)" id="next-array">Next Array</button>
         <button onclick="handleHistroy(true)">History</button>
 
         <div id="slider-div" onchange="changeInterval()">Speed slider <input type="range" min="0" max="900" value="900" class="slider" id="slider"></div>

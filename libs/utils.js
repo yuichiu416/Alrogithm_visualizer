@@ -55,16 +55,8 @@ function move(cells = 1) {
     return new Promise(resolve => setTimeout(resolve, window.interval * cells));
 }
 
-function previousArray() {
-    const array = window.arrays[--window.currentArrayIndex];
-    new window.Array(undefined, array);
-    toggleArrayButtons();
-    handleHistroy()
-}
-
-function nextArray() {
-    const array = window.arrays[++window.currentArrayIndex];
-    console.log(`current ${array}`)
+function changeArray(operation) {
+    const array = window.arrays[window.currentArrayIndex += operation];
     new window.Array(undefined, array);
     toggleArrayButtons();
     handleHistroy()
@@ -76,13 +68,13 @@ function toggleArrayButtons() {
     const nextButton = document.getElementById("next-array");
     const idx = window.currentArrayIndex;
     if (len - idx > 1)
-        nextButton.classList.remove("hidden");
+        nextButton.disabled = false;
     else
-        nextButton.classList.add("hidden");
+        nextButton.disabled = true;
     if (idx > 0)
-        prevButton.classList.remove("hidden");
+        prevButton.disabled = false;
     else
-        prevButton.classList.add("hidden");
+        prevButton.disabled = true;
 }
 
 function handleHistroy(toggle) {
@@ -113,8 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.resetAllSorting = resetAllSorting;
     window.move = move;
     window.sleep = sleep;
-    window.previousArray = previousArray;
-    window.nextArray = nextArray;
+    window.changeArray = changeArray;
     window.toggleArrayButtons = toggleArrayButtons;
     window.handleHistroy = handleHistroy;
     toggleArrayButtons();
