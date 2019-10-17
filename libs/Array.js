@@ -15,7 +15,6 @@ class Array{
         for (let i = 1; i <= size; i++) {
             array.push(i);
         }
-        window.arrays.push(array);
         return array;
     }
     randomize() {
@@ -33,7 +32,6 @@ class Array{
         }
         let array = window.makeArrayFromDivs();
         window.arrays.push(array);
-        window.        
         window.currentArrayIndex++;
         window.resetAllSorting();
         window.toggleArrayButtons();
@@ -66,5 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.arrays = [];
     window.currentArrayIndex = 0;
     window.randomize = this.randomize;
-    new Array(10);
+    let arr = new Array(10);
+    arr.randomize();
+    window.currentArrayIndex = 0;
+    console.log(window.currentArrayIndex)
 })

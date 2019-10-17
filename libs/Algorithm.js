@@ -27,7 +27,7 @@ class Algorithm {
             left.classList.add("move-to-right");
             right.classList.add("move-to-left");
             await window.move(minIdx - i);
-            await window.sleep( 300 / window.speed);
+            await window.sleep( 600 / window.speed * (minIdx - 1));
 
             temp = divs[i];
             divs[minIdx].parentNode.insertBefore(divs[minIdx], divs[i]);
@@ -50,7 +50,7 @@ class Algorithm {
             right.classList.remove("sorting");
             if (i + 1 === parseInt(right.firstChild.innerHTML)) {
                 right.classList.add("finished");
-                if(i === len - 2)
+                if(i === len - 2){}
                     left.classList.add("finished");
             }
         }
@@ -80,7 +80,7 @@ class Algorithm {
                     left.classList.add("move-to-right");
                     right.classList.add("move-to-left");
                     await window.move()
-                    await window.sleep(300 / window.speed);
+                    await window.sleep(600 / window.speed);
 
                     let temp = right;
                     right.parentNode.insertBefore(divs[i + 1], left);
@@ -111,6 +111,6 @@ class Algorithm {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const speed = document.getElementById("slider").nodeValue;
-    window.Algorithm = new Algorithm(speed);
+    const alg = Algorithm.prototype;
+    window.algorithms = [alg.bubbleSort, alg.selectionSort];
 })

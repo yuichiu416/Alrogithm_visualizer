@@ -44,7 +44,7 @@ function move(cells = 1) {
         return new Promise(resolve => setTimeout(resolve, 0));
     let left = document.getElementsByClassName("move-to-right")[0];
     let right = document.getElementsByClassName("move-to-left")[0];
-    let id = setInterval(() => frame(left, right), 10/window.speed);
+    let id = setInterval(() => frame(left, right), 30/window.speed);
     function frame(left, right) {
         let leftDistance = parseInt(left.style.left) || 0;
         let rightDistance = parseInt(right.style.left) || 0;
@@ -55,7 +55,7 @@ function move(cells = 1) {
             right.style.left = rightDistance - 1 * cells + "px";
         }
     }
-    return new Promise(resolve => setTimeout(resolve, 600 / window.speed));
+    return new Promise(resolve => setTimeout(resolve, 600 / window.speed + cells * 200));
 }
 
 function changeArray(operation) {
@@ -86,7 +86,9 @@ function handleHistroy(toggle) {
     let historyLen = histroy.childNodes.length;
     for (let i = historyLen; historyLen < len; i++) {
         let li = document.createElement("li");
-        li.innerHTML = "[" + window.arrays[i] + "]";
+        let text = document.createElement("p")
+        text.innerHTML = "[" + window.arrays[i] + "]";
+        li.appendChild(text);
         histroy.appendChild(li);
         historyLen = histroy.childNodes.length;
     }
@@ -99,9 +101,25 @@ function handleHistroy(toggle) {
     if(toggle)
         histroy.parentNode.classList.toggle("hidden");
 }
+function clickNav(e){
+    if(e.target.id === "algs")
+        return;
+    const lis = document.getElementById("algs");
+    for(let i = 0; i < lis.children.length; i++){
+        lis.children[i].classList.remove("selected");
+        lis.children[i].innerHTML = lis.children[i].id.substring(0, 3);
+        if(e.target.id === lis.children[i].id){
+            lis.children[i].classList.add("selected");
+            lis.children[i].innerHTML = lis.children[i].id;
+            window.algorithmIndex = i;
+        }
+    }
+}
+function sort(){
+    window.algorithms[window.algorithmIndex]();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-    window.interval = Math.abs(document.getElementById("slider").value - 1000);
     window.countSteps = countSteps;
     window.countSwaps = countSwaps;
     window.makeArrayFromDivs = makeArrayFromDivs;
@@ -111,6 +129,10 @@ document.addEventListener("DOMContentLoaded", () => {
     window.changeArray = changeArray;
     window.toggleArrayButtons = toggleArrayButtons;
     window.handleHistroy = handleHistroy;
+    window.clickNav = clickNav;
+    window.sort = sort;
     toggleArrayButtons();
+    document.getElementById("algs").onclick = clickNav;
+    document.getElementById("BUBBLE SORT").click();
     changeSpeed();
 });

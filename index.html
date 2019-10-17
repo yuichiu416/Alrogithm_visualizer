@@ -7,6 +7,7 @@
     <script src="./libs/Algorithm.js"></script>
     <script src="./libs/Array.js"></script>
     <script src="./libs/utils.js"></script>
+    <link rel="stylesheet" type="text/css" href="./reset.css">
     <link rel="stylesheet" type="text/css" href="./style.css">
     <title>Algorithm visualizer</title>
 </head>
@@ -14,7 +15,11 @@
 <body>
     <div id="root">
         <div id="nav">
-            <a href="#"><image src="./images/logo.png" class="logo" /></a>
+            <image src="./images/logo.png" class="logo" onclick="location.reload()"/>
+            <ul id="algs" >
+                <li id="BUBBLE SORT">BUB</li>
+                <li id="SELECTION SORT">SEL</li>
+            </ul>
         </div>
         <div id="info-box">
             <label class="steps">
@@ -32,8 +37,7 @@
         </div>
         <div id="array">
         </div>
-        <button onclick="Algorithm.prototype.bubbleSort()">Bubble Sort</button>
-        <button onclick="Algorithm.prototype.selectionSort()">Selection Sort</button>
+        <button onclick="sort()">Sort</button>
         <button onclick="stopSorting()">Stop</button>
         <button onclick="Array.prototype.randomize()" >Randomize</button>
         <button onclick="changeArray(-1)" id="previous-array">Previous Array</button>
