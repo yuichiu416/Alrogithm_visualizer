@@ -3,6 +3,7 @@ class Array{
         if(values){
             this.array = values;
             this.createArrayLi();
+            this.initializeArrayWithvalues(values);
         }
         else{
             this.array = this.initializeArrayWithSize(size);
@@ -16,6 +17,13 @@ class Array{
             array.push(i);
         }
         return array;
+    }
+    initializeArrayWithvalues(values){
+        window.arrays.push(values);
+        window.currentArrayIndex++;
+        window.resetAllSorting();
+        window.toggleArrayButtons();
+        window.handleHistroy();
     }
     randomize() {
         let divs = document.getElementsByClassName("number");
@@ -31,11 +39,7 @@ class Array{
             divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
         }
         let array = window.makeArrayFromDivs();
-        window.arrays.push(array);
-        window.currentArrayIndex++;
-        window.resetAllSorting();
-        window.toggleArrayButtons();
-        window.handleHistroy();
+        this.initializeArrayWithvalues(array);
     }
 
     createArrayLi() {
@@ -56,6 +60,7 @@ class Array{
             return;
         const arrayHTMLElement = document.getElementById("array");
         new Array(size).createArrayLi(arrayHTMLElement);
+        document.getElementById("size-label").innerHTML = size;
     }
 }
 
@@ -64,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.arrays = [];
     window.currentArrayIndex = 0;
     window.randomize = this.randomize;
-    let arr = new Array(10);
-    arr.randomize();
+    let arr = new Array(10, [7, 2, 9, 1, 4, 3, 6, 5, 8, 10]);
     window.currentArrayIndex = 0;
-    console.log(window.currentArrayIndex)
-})
+});

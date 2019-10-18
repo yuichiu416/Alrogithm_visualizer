@@ -35,14 +35,55 @@
                 <ul id="array-history"></ul>
             </label>
         </div>
-        <div id="array">
+        <div id="snippet">
+            <div id="bubble-sort-text" class="hidden">
+                <p id="0">
+                    while (!sorted)
+                </p>
+                <p id="1">
+                    sorted = true
+                </p> 
+                <p id="1">
+                    for i = 1 to length-1
+                </p>
+                <p id="2">
+                    if leftElement > rightElement<br/>
+                </p>
+                    <p id="3">
+                        swap(leftElement, rightElement)<br/>
+                        swapped = false<br/>
+                    </p>
+            </div>
+            <div id="selection-sort-text" class="hidden">
+                <p id="0">
+                    repeat (numOfElements - 1) times<br/>
+                </p>
+                <p id="1">
+                    set the first unsorted element as the minimum
+                </p>
+                <p id="1">
+                    for each of the unsorted elements
+                </p>
+                <p id="2">
+                    if element < currentMinimum
+                </p>
+                    <p id="3">
+                        set element as new minimum
+                    </p>
+                <p id="2">
+                    swap minimum with first unsorted position
+                </p>
+            </div>
         </div>
+        <div id="array"></div>
+        
         <button onclick="sort()">Sort</button>
         <button onclick="stopSorting()">Stop</button>
         <button onclick="Array.prototype.randomize()" >Randomize</button>
         <button onclick="changeArray(-1)" id="previous-array">Previous Array</button>
         <button onclick="changeArray(1)" id="next-array">Next Array</button>
         <button onclick="handleHistroy(true)">History</button>
+        <button onclick="toggleSnippet()">Code Snippet</button>
 
         <div id="slider-div" onchange="changeSpeed()">
             <label for="slider">
@@ -52,8 +93,9 @@
             </label>
         </div>
         <label for="size">
-            Input the size of the array:
-            <input id="size" type="text" onchange="Array.prototype.changeSize()"/>
+            Change the size of the array:
+            <input id="size" type="range" min="5" max="100" step="1" onchange="Array.prototype.changeSize()" value="10"/>
+            <label id="size-label"></label>
         </label>
     </div>
 </body>

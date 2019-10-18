@@ -27,6 +27,10 @@
     color: white;
 }
 
+#algs{
+    cursor: pointer;
+}
+
 .logo{
     width: 200px;
     height: auto;
@@ -70,9 +74,12 @@
     background-color: chartreuse;
 }
 .sorting{
-    color: red;
+    background-color: aquamarine;
 }
 
+.current-array{
+    color: red;
+}
 .number-text{
     margin: auto;
     margin-bottom: 0;
@@ -80,8 +87,7 @@
 #speed-slider{
     background-color: azure;
 }
-.steps{
-}
+
 .swaps{
     top: 10%;
 }
@@ -97,4 +103,20 @@
 }
 .finished{
     background-color: coral;
+}
+
+#snippet{
+    font-size: 20px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 400px;
+    z-index: 2;
+    background-color: yellow;
+}
+.move-to-right{
+    background-color: khaki;
+}
+.move-to-left{
+    background-color: ivory;
 }

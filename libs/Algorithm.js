@@ -8,26 +8,39 @@ class Algorithm {
 
         let minIdx, temp;
         for (let i = 0; i < len - 1; i++) {
+            window.setCodeColor(1)
+            await window.sleep(600 / window.speed);
+
             if (window.stoppedIndex) {
                 i = window.stoppedIndex;
                 window.stoppedIndex = undefined;
             }
             minIdx = i;
-            for (let j = i + 1; j < len; j++) {
-                window.countSteps();
-                if (array[j] < array[minIdx]) {
-                    minIdx = j;
-                }
-            }
-
-            let left = divs[i], right = divs[minIdx];
-            window.countSwaps();
-            left.classList.add("sorting");
-            right.classList.add("sorting");
+            let left = divs[i], right;
             left.classList.add("move-to-right");
+            for (let j = i + 1; j < len; j++) {
+                window.setCodeColor(2)
+                await window.sleep(600 / window.speed);
+                right = divs[j];
+                right.classList.add("move-to-left");
+                if (array[j] < array[minIdx]) {
+                    window.setCodeColor(3);
+                await window.sleep(600 / window.speed);
+                    minIdx = j;
+                    window.setCodeColor(4)
+                await window.sleep(600 / window.speed);
+                }
+                right.classList.remove("move-to-left");
+            }
+            
+            window.countSteps();
+            window.countSwaps();
+            right = divs[minIdx];
             right.classList.add("move-to-left");
+            window.setCodeColor(5);
+            await window.sleep(600 / window.speed);
             await window.move(minIdx - i);
-            await window.sleep( 600 / window.speed * (minIdx - 1));
+            await window.sleep( 300 / window.speed * (minIdx - 1));
 
             temp = divs[i];
             divs[minIdx].parentNode.insertBefore(divs[minIdx], divs[i]);
@@ -46,15 +59,11 @@ class Algorithm {
             right.classList.remove("move-to-left");
             if (window.stop)
                 return window.stoppedIndex = i + 1;
-            left.classList.remove("sorting");
-            right.classList.remove("sorting");
-            if (i + 1 === parseInt(right.firstChild.innerHTML)) {
-                right.classList.add("finished");
-                if(i === len - 2){}
-                    left.classList.add("finished");
-            }
+            if (parseInt(divs[i].firstChild.innerHTML) === i + 1)
+                divs[i].classList.add("finished");
+            if (parseInt(divs[len - 1].firstChild.innerHTML) === len)
+                divs[len - 1].classList.add("finished");
         }
-        return array;
     }
 
     async bubbleSort() {
@@ -65,22 +74,36 @@ class Algorithm {
         let divs = document.getElementsByClassName("number");
         let sorted = false;
         while(!sorted) {
+            window.setCodeColor(0);
+            await window.sleep(600 / window.speed);
             sorted = true
+            window.setCodeColor(1);
+            await window.sleep(600 / window.speed);
+            
             for (let i = 0; i < len - 1; i++) {
+                window.codeSnippetIndex = 2;
+                window.setCodeColor(2);
+                await window.sleep(600 / window.speed);
+
                 if(window.stoppedIndex){
                     i = window.stoppedIndex;
                     window.stoppedIndex = undefined;
                 }
                 window.countSteps();
                 let left = divs[i], right = divs[i + 1];
-                left.classList.add("sorting");
+                left.classList.add("move-to-right");
                 if (array[i + 1] < array[i]) {
+                    window.setCodeColor(3);
+                    await window.sleep(600 / window.speed);
+
                     window.countSwaps();
                     sorted = false;
-                    left.classList.add("move-to-right");
+                    window.setCodeColor(4);
+                    await window.sleep(600 / window.speed);
+
                     right.classList.add("move-to-left");
                     await window.move()
-                    await window.sleep(600 / window.speed);
+                    await window.sleep(300 / window.speed);
 
                     let temp = right;
                     right.parentNode.insertBefore(divs[i + 1], left);
@@ -97,14 +120,10 @@ class Algorithm {
                 right.classList.remove("move-to-left");
                 if(window.stop)
                     return window.stoppedIndex = i + 1;
-                left.classList.remove("sorting");
-                if (i === len - 2)
-                    left.classList.add("finished"); 
-                else if (i + 1 === parseInt(left.firstChild.innerHTML)){
-                    right.classList.add("finished");
-                    if (i === 0)
-                        left.classList.add("finished");
-                }
+            if (parseInt(divs[i].firstChild.innerHTML) === i + 1)
+                divs[i].classList.add("finished");
+            if (parseInt(divs[len - 1].firstChild.innerHTML) === len)
+                divs[len - 1].classList.add("finished");
             }
         }
     }

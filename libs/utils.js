@@ -44,7 +44,7 @@ function move(cells = 1) {
         return new Promise(resolve => setTimeout(resolve, 0));
     let left = document.getElementsByClassName("move-to-right")[0];
     let right = document.getElementsByClassName("move-to-left")[0];
-    let id = setInterval(() => frame(left, right), 30/window.speed);
+    let id = setInterval(() => frame(left, right), 1);
     function frame(left, right) {
         let leftDistance = parseInt(left.style.left) || 0;
         let rightDistance = parseInt(right.style.left) || 0;
@@ -94,9 +94,9 @@ function handleHistroy(toggle) {
     }
     for(let i = 0; i < historyLen; i++){
         if(i != window.currentArrayIndex)
-            histroy.childNodes[i].classList.remove("sorting");
+            histroy.childNodes[i].classList.remove("current-array");
         else
-            histroy.childNodes[i].classList.add("sorting");
+            histroy.childNodes[i].classList.add("current-array");
     }
     if(toggle)
         histroy.parentNode.classList.toggle("hidden");
@@ -105,6 +105,7 @@ function clickNav(e){
     if(e.target.id === "algs")
         return;
     const lis = document.getElementById("algs");
+    document.getElementById("snippet").children[window.algorithmIndex].classList.add("hidden");
     for(let i = 0; i < lis.children.length; i++){
         lis.children[i].classList.remove("selected");
         lis.children[i].innerHTML = lis.children[i].id.substring(0, 3);
@@ -119,6 +120,30 @@ function sort(){
     window.algorithms[window.algorithmIndex]();
 }
 
+function setCodeIndent(){
+    let divC = document.getElementById("snippet").children[window.algorithmIndex].children;
+
+    for(let i = 0; i < divC.length; i++){
+        divC[i].style.paddingLeft = divC[i].id * 30 + "px";
+    }
+}
+
+function setCodeColor(idx){
+    const divC = document.getElementById("snippet").children[window.algorithmIndex].children;
+    for (let i = 0; i < divC.length; i++) {
+        if(i === idx)
+            divC[i].classList.add("sorting");
+        else
+            divC[i].classList.remove("sorting");
+    }
+}
+
+function toggleSnippet(){
+    setCodeIndent();
+    setCodeColor(0);
+    document.getElementById("snippet").children[window.algorithmIndex].classList.toggle("hidden");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     window.countSteps = countSteps;
     window.countSwaps = countSwaps;
@@ -130,9 +155,12 @@ document.addEventListener("DOMContentLoaded", () => {
     window.toggleArrayButtons = toggleArrayButtons;
     window.handleHistroy = handleHistroy;
     window.clickNav = clickNav;
+    window.toggleSnippet = toggleSnippet;
     window.sort = sort;
-    toggleArrayButtons();
     document.getElementById("algs").onclick = clickNav;
+    window.algorithmIndex = 0;
     document.getElementById("BUBBLE SORT").click();
+    toggleArrayButtons();
     changeSpeed();
+    setCodeColor(0);
 });
