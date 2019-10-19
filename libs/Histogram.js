@@ -1,9 +1,9 @@
-class Array{
+class Histogram{
     constructor(size, values){
         if(values){
             this.array = values;
             this.createArrayLi();
-            this.initializeArrayWithvalues(values);
+            window.resetSettings();
         }
         else{
             this.array = this.initializeArrayWithSize(size);
@@ -18,12 +18,10 @@ class Array{
         }
         return array;
     }
-    initializeArrayWithvalues(values){
+    createNewArrayWithValues(values){
         window.arrays.push(values);
         window.currentArrayIndex++;
-        window.resetAllSorting();
-        window.toggleArrayButtons();
-        window.handleHistroy();
+        window.resetSettings();
     }
     randomize() {
         let divs = document.getElementsByClassName("number");
@@ -39,18 +37,21 @@ class Array{
             divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
         }
         let array = window.makeArrayFromDivs();
-        this.initializeArrayWithvalues(array);
+        this.createNewArrayWithValues(array);
     }
 
     createArrayLi() {
         let array = this.array;
         const arrayHTMLElement = document.getElementById("array");
-        const unidHeight = 600 / array.length;
+        const navHeight = document.getElementById("nav").offsetHeight;
+        const panelHeight = document.getElementById("panel").offsetHeight;
+
+        const unitHeight = 500 / array.length;
         while(arrayHTMLElement.firstChild){
             arrayHTMLElement.removeChild(arrayHTMLElement.firstChild);
         }
         array.forEach(value => {
-            let number = new Number(value, unidHeight, array.length);
+            let number = new Number(value, unitHeight, array.length);
             arrayHTMLElement.appendChild(number);
         });
     }
@@ -59,16 +60,17 @@ class Array{
         if(isNaN(parseInt(size)))
             return;
         const arrayHTMLElement = document.getElementById("array");
-        new Array(size).createArrayLi(arrayHTMLElement);
+        new Histogram(size).createArrayLi(arrayHTMLElement);
         document.getElementById("size-label").innerHTML = size;
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    window.Array = Array;
+    window.Histogram = Histogram;
     window.arrays = [];
     window.currentArrayIndex = 0;
     window.randomize = this.randomize;
-    let arr = new Array(10, [7, 2, 9, 1, 4, 3, 6, 5, 8, 10]);
+    let arr = new Histogram(10, [7, 2, 9, 1, 4, 3, 6, 5, 8, 10]);
     window.currentArrayIndex = 0;
+    document.getElementById("size-label").innerHTML = document.getElementById("size").value;
 });

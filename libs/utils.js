@@ -60,9 +60,9 @@ function move(cells = 1) {
 
 function changeArray(operation) {
     const array = window.arrays[window.currentArrayIndex += operation];
-    new window.Array(undefined, array);
+    new window.Histogram(undefined, array);
     toggleArrayButtons();
-    handleHistroy()
+    handleHistory();
 }
 
 function toggleArrayButtons() {
@@ -80,27 +80,29 @@ function toggleArrayButtons() {
         prevButton.disabled = true;
 }
 
-function handleHistroy(toggle) {
-    const histroy = document.getElementById("array-history");
+function handleHistory(toggle) {
+    const history = document.getElementById("array-history");
     const len = window.arrays.length;
-    let historyLen = histroy.childNodes.length;
+    let historyLen = history.childNodes.length;
     for (let i = historyLen; historyLen < len; i++) {
         let li = document.createElement("li");
         let text = document.createElement("p")
         text.innerHTML = "[" + window.arrays[i] + "]";
         li.appendChild(text);
-        histroy.appendChild(li);
-        historyLen = histroy.childNodes.length;
+        history.appendChild(li);
+        historyLen = history.childNodes.length;
     }
     for(let i = 0; i < historyLen; i++){
         if(i != window.currentArrayIndex)
-            histroy.childNodes[i].classList.remove("current-array");
+            history.childNodes[i].classList.remove("current-array");
         else
-            histroy.childNodes[i].classList.add("current-array");
+            history.childNodes[i].classList.add("current-array");
     }
     if(toggle)
-        histroy.parentNode.classList.toggle("hidden");
+        history.parentNode.classList.toggle("hidden");
+    document.getElementById("history-btn").classList.toggle("active");
 }
+
 function clickNav(e){
     if(e.target.id === "algs")
         return;
@@ -141,10 +143,22 @@ function setCodeColor(idx){
 function toggleSnippet(){
     setCodeIndent();
     setCodeColor(0);
+    document.getElementById("snippet-btn").classList.toggle("active");
     document.getElementById("snippet").children[window.algorithmIndex].classList.toggle("hidden");
 }
 
+function resetSettings(){
+    window.algorithmIndex = 0;
+    resetAllSorting();
+    toggleArrayButtons();
+    handleHistory();
+    changeSpeed();
+    setCodeColor(0);
+    document.getElementById("BUBBLE SORT").click();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    window.intervals = [];
     window.countSteps = countSteps;
     window.countSwaps = countSwaps;
     window.makeArrayFromDivs = makeArrayFromDivs;
@@ -153,14 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.sleep = sleep;
     window.changeArray = changeArray;
     window.toggleArrayButtons = toggleArrayButtons;
-    window.handleHistroy = handleHistroy;
+    window.handleHistory = handleHistory;
     window.clickNav = clickNav;
     window.toggleSnippet = toggleSnippet;
     window.sort = sort;
     document.getElementById("algs").onclick = clickNav;
-    window.algorithmIndex = 0;
-    document.getElementById("BUBBLE SORT").click();
-    toggleArrayButtons();
-    changeSpeed();
-    setCodeColor(0);
+    window.resetSettings = resetSettings;
+    resetSettings();
 });

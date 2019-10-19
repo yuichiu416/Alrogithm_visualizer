@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="./libs/Number.js"></script>
     <script src="./libs/Algorithm.js"></script>
-    <script src="./libs/Array.js"></script>
+    <script src="./libs/Histogram.js"></script>
     <script src="./libs/utils.js"></script>
     <link rel="stylesheet" type="text/css" href="./reset.css">
     <link rel="stylesheet" type="text/css" href="./style.css">
@@ -19,6 +20,10 @@
             <ul id="algs" >
                 <li id="BUBBLE SORT">BUB</li>
                 <li id="SELECTION SORT">SEL</li>
+                <li id="INSERTION SORT">INS</li>
+                <li id="MERGE SORT">MER</li>
+                <li id="QUICK SORT">QUI</li>
+                <li id="HEAP SORT">HEA</li>
             </ul>
         </div>
         <div id="info-box">
@@ -31,7 +36,7 @@
                 <label id="swaps">0</label>
             </label>
             <label class="hidden">
-                Array Histroy:
+                Array History:
                 <ul id="array-history"></ul>
             </label>
         </div>
@@ -74,29 +79,39 @@
                     swap minimum with first unsorted position
                 </p>
             </div>
+            <div id="insertion-sort-text" class="hidden">
+            </div>
+            <div id="merge-sort-text" class="hidden">
+            </div>
+            <div id="quick-sort-text" class="hidden">
+            </div>
+            <div id="heap-sort-text" class="hidden">
+
+            </div>
         </div>
         <div id="array"></div>
-        
-        <button onclick="sort()">Sort</button>
-        <button onclick="stopSorting()">Stop</button>
-        <button onclick="Array.prototype.randomize()" >Randomize</button>
-        <button onclick="changeArray(-1)" id="previous-array">Previous Array</button>
-        <button onclick="changeArray(1)" id="next-array">Next Array</button>
-        <button onclick="handleHistroy(true)">History</button>
-        <button onclick="toggleSnippet()">Code Snippet</button>
-
-        <div id="slider-div" onchange="changeSpeed()">
-            <label for="slider">
-                Speed slider :
-                <input type="range" min="1" max="5" value="5" step="1" class="slider" id="slider">
-                <label id="speed-label"></label>
-            </label>
+        <div id="panel">
+            <button class="button blue" onclick="sort()"><span>Sort</span></button>
+            <button class="button blue" onclick="stopSorting()"><span>Stop</span></button>
+            <button class="button blue" onclick="Histogram.prototype.randomize()" ><span>Randomize</span></button>
+            <button class="button blue" onclick="changeArray(-1)" id="previous-array"><span> Previous Array</span></button>
+            <button class="button blue" onclick="changeArray(1)" id="next-array"><span>Next Array</span></button>
+            <button class="button blue" id="history-btn"  onclick="handleHistory(true)"><span>History</span></button>
+            <button class="button blue" id="snippet-btn"  onclick="toggleSnippet()"><span>Code Snippet</span></button>
+            
+            <div class="slider-div">
+                <label for="slider">
+                    Speed slider : <label id="speed-label"></label>
+                </label>
+                <input type="range" min="1" max="5" value="5" step="1" class="slider" id="slider" onchange="changeSpeed()"">
+            </div>
+            <div class="slider-div">
+                <label for="size">
+                    Change the size of the array: <label id="size-label"></label>
+                </label>
+                <input id="size" type="range" min="5" max="100" step="1" class="slider" onchange="Histogram.prototype.changeSize()" value="10"/>
+            </div>
         </div>
-        <label for="size">
-            Change the size of the array:
-            <input id="size" type="range" min="5" max="100" step="1" onchange="Array.prototype.changeSize()" value="10"/>
-            <label id="size-label"></label>
-        </label>
     </div>
 </body>
 

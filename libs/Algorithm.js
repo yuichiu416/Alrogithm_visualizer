@@ -131,5 +131,5 @@ class Algorithm {
 
 document.addEventListener("DOMContentLoaded", () => {
     const alg = Algorithm.prototype;
-    window.algorithms = [alg.bubbleSort, alg.selectionSort];
+    window.algorithms = [alg.bubbleSort, alg.selectionSort, "insertion sort", "merge sort", "quick sort", "heap sort"];
 })
