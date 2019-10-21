@@ -1,4 +1,45 @@
 class Algorithm {
+    async mergeSort(arr = window.arrays[window.currentArrayIndex]) {
+        var sorted = arr.slice(), sortedHTML = document.getElementById("array"),
+            n = sorted.length,
+            buffer = new Array(n), bufferHTML = sortedHTML.cloneNode(true);
+
+        for (let size = 1; size < n; size *= 2) {
+            for (let leftStart = 0; leftStart < n; leftStart += 2 * size) {
+                let left = leftStart,
+                right = Math.min(left + size, n),
+                leftLimit = right,
+                rightLimit = Math.min(right + size, n),
+                i = left;
+                while (left < leftLimit && right < rightLimit) {
+                    window.countSwaps();
+                    window.countSteps();
+                    if (sorted[left] <= sorted[right]) {
+                        bufferHTML.replaceChild(sortedHTML.childNodes[left].cloneNode(true), bufferHTML.childNodes[i]);
+                        buffer[i++] = sorted[left++];
+                    } else {
+                        bufferHTML.replaceChild(sortedHTML.childNodes[right].cloneNode(true), bufferHTML.childNodes[i]);
+                        buffer[i++] = sorted[right++];
+                    }
+                }
+                while (left < leftLimit) {
+                    bufferHTML.replaceChild(sortedHTML.childNodes[left].cloneNode(true), bufferHTML.childNodes[i]);
+                    buffer[i++] = sorted[left++];
+                }
+                while (right < rightLimit) {
+                    bufferHTML.replaceChild(sortedHTML.childNodes[right].cloneNode(true), bufferHTML.childNodes[i]);
+                    buffer[i++] = sorted[right++];
+                }
+            }
+            await window.sleep(5000 / window.speed);
+            var temp = sorted, tempHTML = sortedHTML,
+                sorted = buffer, sortedHTML = bufferHTML,
+                buffer = temp, bufferHTML = tempHTML;
+        }
+        let oldArrHTML = document.getElementById("array");
+        oldArrHTML.parentNode.replaceChild(sortedHTML, oldArrHTML);
+    }
+
     async selectionSort() {
         window.stop = false;
         window.resetAllSorting();
@@ -120,10 +161,14 @@ class Algorithm {
                 right.classList.remove("move-to-left");
                 if(window.stop)
                     return window.stoppedIndex = i + 1;
-            if (parseInt(divs[i].firstChild.innerHTML) === i + 1)
-                divs[i].classList.add("finished");
-            if (parseInt(divs[len - 1].firstChild.innerHTML) === len)
-                divs[len - 1].classList.add("finished");
+                if (parseInt(divs[i].firstChild.innerHTML) === i + 1)
+                    divs[i].classList.add("finished");
+                else
+                    divs[i].classList.remove("finished");                
+                if (parseInt(divs[len - 1].firstChild.innerHTML) === len)
+                    divs[len - 1].classList.add("finished");
+                else
+                    divs[len - 1].classList.remove("finished");
             }
         }
     }
@@ -131,5 +176,8 @@ class Algorithm {
 
 document.addEventListener("DOMContentLoaded", () => {
     const alg = Algorithm.prototype;
-    window.algorithms = [alg.bubbleSort, alg.selectionSort, "insertion sort", "merge sort", "quick sort", "heap sort"];
-})
+    window.mergeSort = alg.mergeSort;
+    window.merge = alg.merge;
+    window.algorithms = [alg.bubbleSort, alg.selectionSort, "insertion sort", alg.mergeSort, "quick sort", "heap sort"];
+    
+});

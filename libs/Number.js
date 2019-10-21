@@ -13,6 +13,11 @@ class Number{
             number.classList.add("tiny");
             window.width = 15;
         }
+        if(size > 99){
+            text.classList.add("hidden")
+            number.classList.add("line");
+            window.width = 2;
+        }
 
         number.appendChild(text);
         number.classList.add("number");

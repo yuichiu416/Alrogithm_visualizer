@@ -27,14 +27,16 @@ class Histogram{
         let divs = document.getElementsByClassName("number");
         if (divs.length === 0)
             return;
-        let randomIndex, currentIndex = divs.length;
-        while (currentIndex > 0) {
-            currentIndex--;
-            randomIndex = Math.floor(Math.random() * divs.length);
-            let temp = divs[currentIndex];
-            divs[currentIndex].classList.remove("sorting");
-            divs[currentIndex].parentNode.insertBefore(divs[currentIndex], divs[randomIndex]);
-            divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
+        for(let i = 0; i < 3; i++){
+            let randomIndex, currentIndex = divs.length;
+            while(currentIndex > 0) {
+                currentIndex--;
+                randomIndex = Math.floor(Math.random() * divs.length);
+                let temp = divs[currentIndex];
+                divs[currentIndex].classList.remove("sorting");
+                divs[currentIndex].parentNode.insertBefore(divs[currentIndex], divs[randomIndex]);
+                divs[randomIndex].parentNode.insertBefore(divs[randomIndex], temp);
+            }
         }
         let array = window.makeArrayFromDivs();
         this.createNewArrayWithValues(array);
@@ -68,9 +70,7 @@ class Histogram{
 document.addEventListener("DOMContentLoaded", () => {
     window.Histogram = Histogram;
     window.arrays = [];
-    window.currentArrayIndex = 0;
-    window.randomize = this.randomize;
-    let arr = new Histogram(10, [7, 2, 9, 1, 4, 3, 6, 5, 8, 10]);
-    window.currentArrayIndex = 0;
-    document.getElementById("size-label").innerHTML = document.getElementById("size").value;
+    window.randomize = Histogram.prototype.randomize;
+    new Histogram(document.getElementById("size").value);
+    window.currentArrayIndex = -1;
 });

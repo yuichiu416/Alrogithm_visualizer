@@ -2,12 +2,14 @@
 
 A visualizer that shows the process of the sorting algorithmgs
 
+[Live Demo](https://yuichiu416.github.io/Alrogithm_visualizer/)
+
 ## Functionaliy and MVP
 1. Shows the algorithm step by step
 2. Able to select different algorithms
-3. Can randomize the array
+3. Code snippet as it runs
 4. Customized input size
-
+5. Selected previous inputs if necessary
 
 ## Technologies
 1. JavaScript

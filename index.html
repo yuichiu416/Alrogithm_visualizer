@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="./libs/Number.js"></script>
     <script src="./libs/Algorithm.js"></script>
@@ -42,42 +43,31 @@
         </div>
         <div id="snippet">
             <div id="bubble-sort-text" class="hidden">
-                <p id="0">
-                    while (!sorted)
-                </p>
-                <p id="1">
-                    sorted = true
-                </p> 
-                <p id="1">
-                    for i = 1 to length-1
-                </p>
-                <p id="2">
-                    if leftElement > rightElement<br/>
-                </p>
-                    <p id="3">
-                        swap(leftElement, rightElement)<br/>
-                        swapped = false<br/>
-                    </p>
+                <p id="0">while (!sorted)</p>
+                    <p id="1">sorted = true</p> 
+                    <p id="1">for i = 1 to length-1</p>
+                        <p id="2">if leftElement > rightElement</p>
+                            <p id="3">
+                                swap(leftElement, rightElement)<br/>
+                                swapped = false<br/>
+                            </p>
             </div>
             <div id="selection-sort-text" class="hidden">
-                <p id="0">
-                    repeat (numOfElements - 1) times<br/>
-                </p>
-                <p id="1">
-                    set the first unsorted element as the minimum
-                </p>
-                <p id="1">
-                    for each of the unsorted elements
-                </p>
-                <p id="2">
-                    if element < currentMinimum
-                </p>
-                    <p id="3">
-                        set element as new minimum
-                    </p>
-                <p id="2">
-                    swap minimum with first unsorted position
-                </p>
+                <p id="0"> repeat (numOfElements - 1) times</p>
+                    <p id="1">set the first unsorted element as the minimum</p>
+                    <p id="1">for each of the unsorted elements</p>
+                        <p id="2">if element < currentMinimum</p>
+                            <p id="3">set element as new minimum</p>
+                        <p id="2">swap minimum with first unsorted position</p>
+            </div>
+            <div id="merge-sort-text" class="hidden">
+                <p id="0">split each element into partitions of size 1</p>
+                <p id="0">recursively merge adjacent partitions</p>
+                    <p id="1">for i = leftPartIdx to rightPartIdx</p>
+                        <p id="2">if leftPartHeadValue <= rightPartHeadValue</p>
+                            <p id="3">copy leftPartHeadValue</p>
+                        <p id="2">else: copy rightPartHeadValue</p>
+                    <p id="1">copy elements back to original array</p>
             </div>
             <div id="insertion-sort-text" class="hidden">
             </div>
