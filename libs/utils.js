@@ -7,6 +7,10 @@ function stopSorting() {
     window.stop = true;
 }
 
+function resetStepAndSwap(){
+    document.getElementById("swaps").value = 0;
+    document.getElementById("steps").value = 0;
+}
 function countSteps() {
     const steps = document.getElementById("steps");
     steps.innerHTML = parseInt(steps.innerHTML) + 1;
@@ -63,6 +67,7 @@ function changeArray(operation) {
     new window.Histogram(undefined, array);
     toggleArrayButtons();
     handleHistory();
+    resetStepAndSwap();
 }
 
 function toggleArrayButtons() {
