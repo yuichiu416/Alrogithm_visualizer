@@ -58,29 +58,6 @@ function move(cells = 1) {
     return new Promise(resolve => setTimeout(resolve, 600 / window.speed + cells * 200));
 }
 
-function insertAfter(newNode, referenceNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-
-function mergeMove(){
-    if (window.speed === 5)
-        return new Promise(resolve => setTimeout(resolve, 0));
-    let left = document.getElementsByClassName("move-to-right")[0];
-    let right = document.getElementsByClassName("move-to-left")[0];
-    let id = setInterval(() => frame(left, right), 1);
-    function frame(left, right) {
-        let leftDistance = parseInt(left.style.left) || 0;
-        let rightDistance = parseInt(right.style.left) || 0;
-        if (leftDistance >= window.width * cells) {
-            clearInterval(id);
-        } else {
-            left.style.left = leftDistance + 1 * cells + "px";
-            right.style.left = rightDistance - 1 * cells + "px";
-        }
-    }
-    return new Promise(resolve => setTimeout(resolve, 600 / window.speed + cells * 200));
-}
-
 function changeArray(operation) {
     const array = window.arrays[window.currentArrayIndex += operation];
     new window.Histogram(undefined, array);

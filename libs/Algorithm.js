@@ -105,6 +105,7 @@ class Algorithm {
             if (parseInt(divs[len - 1].firstChild.innerHTML) === len)
                 divs[len - 1].classList.add("finished");
         }
+        window.setCodeColor(-1);
     }
 
     async bubbleSort() {
@@ -171,6 +172,7 @@ class Algorithm {
                     divs[len - 1].classList.remove("finished");
             }
         }
+        window.setCodeColor(-1);
     }
 }
 
