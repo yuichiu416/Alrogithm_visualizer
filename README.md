@@ -27,5 +27,3 @@ A visualizer that shows the process of the sorting algorithmgs
 1. Visualize the array in histogram
 2. Colorize the array if necessary
 3. Combine algorithms with html/css
-   
-## Code snippet example
