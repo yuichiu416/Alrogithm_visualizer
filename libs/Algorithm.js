@@ -1,5 +1,6 @@
 class Algorithm {
-    async mergeSort(arr = window.arrays[window.currentArrayIndex]) {
+    async mergeSort() {
+        let arr = window.arrays[window.currentArrayIndex];
         var sorted = arr.slice(), sortedHTML = document.getElementById("array"),
             n = sorted.length,
             buffer = new Array(n), bufferHTML = sortedHTML.cloneNode(true);
@@ -11,17 +12,27 @@ class Algorithm {
                 leftLimit = right,
                 rightLimit = Math.min(right + size, n),
                 i = left;
+                window.setCodeColor(0);
+                await window.sleep(600 / window.speed);
                 while (left < leftLimit && right < rightLimit) {
+                    window.setCodeColor(1);
+                    await window.sleep(600 / window.speed);
                     window.countSwaps();
                     window.countSteps();
                     if (sorted[left] <= sorted[right]) {
+                        window.setCodeColor(3);
+                        await window.sleep(600 / window.speed);
                         bufferHTML.replaceChild(sortedHTML.childNodes[left].cloneNode(true), bufferHTML.childNodes[i]);
                         buffer[i++] = sorted[left++];
                     } else {
+                        window.setCodeColor(4);
+                        await window.sleep(600 / window.speed);
                         bufferHTML.replaceChild(sortedHTML.childNodes[right].cloneNode(true), bufferHTML.childNodes[i]);
                         buffer[i++] = sorted[right++];
                     }
                 }
+                window.setCodeColor(5);
+                await window.sleep(600 / window.speed);
                 while (left < leftLimit) {
                     bufferHTML.replaceChild(sortedHTML.childNodes[left].cloneNode(true), bufferHTML.childNodes[i]);
                     buffer[i++] = sorted[left++];
@@ -38,6 +49,7 @@ class Algorithm {
         }
         let oldArrHTML = document.getElementById("array");
         oldArrHTML.parentNode.replaceChild(sortedHTML, oldArrHTML);
+        window.setCodeColor(0);
     }
 
     async selectionSort() {
@@ -49,7 +61,7 @@ class Algorithm {
 
         let minIdx, temp;
         for (let i = 0; i < len - 1; i++) {
-            window.setCodeColor(1)
+            window.setCodeColor(1);
             await window.sleep(600 / window.speed);
 
             if (window.stoppedIndex) {
@@ -180,6 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const alg = Algorithm.prototype;
     window.mergeSort = alg.mergeSort;
     window.merge = alg.merge;
-    window.algorithms = [alg.bubbleSort, alg.selectionSort, "insertion sort", alg.mergeSort, "quick sort", "heap sort"];
+    window.algorithms = [alg.bubbleSort, alg.selectionSort, alg.mergeSort];
     
 });

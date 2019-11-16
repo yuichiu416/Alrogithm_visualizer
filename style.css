@@ -388,3 +388,10 @@ input[type=range]:focus::-ms-fill-upper {
 .slider{
     background: #4e54c8;  
 }
+.personal-info{
+  margin: auto 0 auto auto;
+  font-size: 24px;
+}
+.personal-info a{
+  margin: 10px 30px;
+}
